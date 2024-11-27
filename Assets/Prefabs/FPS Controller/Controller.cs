@@ -15,7 +15,9 @@ public class Controller : MonoBehaviour
 
     public Camera MainCamera;
 
-    public Transform CameraPosition;   
+    public Transform CameraPosition;
+
+    public GameObject Flashlight;
 
     [Header("Control Settings")]
     public float MouseSensitivity = 100.0f;
@@ -33,6 +35,8 @@ public class Controller : MonoBehaviour
     public bool CanPause { get; set; } = true;
 
     public bool Grounded => m_Grounded;
+
+    bool LightStatus;
 
     CharacterController m_CharacterController;
 
@@ -71,6 +75,16 @@ public class Controller : MonoBehaviour
         bool wasGrounded = m_Grounded;
         bool loosedGrounding = false;
 
+        if (Input.GetKeyDown(KeyCode.F) && LightStatus == true)
+        {
+            Flashlight.SetActive(false);
+            LightStatus = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.F) && LightStatus == false)
+        {
+            Flashlight.SetActive(true);
+            LightStatus = true;
+        }
         //we define our own grounded and not use the Character controller one as the character controller can flicker
         //between grounded/not grounded on small step and the like. So we actually make the controller "not grounded" only
         //if the character controller reported not being grounded for at least .5 second;
