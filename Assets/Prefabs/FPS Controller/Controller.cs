@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour
     public Transform CameraPosition;
 
     public GameObject Flashlight;
+    public GameObject EndScreen;
 
     [Header("Control Settings")]
     public float MouseSensitivity = 100.0f;
@@ -75,6 +76,18 @@ public class Controller : MonoBehaviour
         bool wasGrounded = m_Grounded;
         bool loosedGrounding = false;
 
+        if (EndScreen.activeSelf == true)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+        }
         if (Input.GetKeyDown(KeyCode.F) && LightStatus == true)
         {
             Flashlight.SetActive(false);
